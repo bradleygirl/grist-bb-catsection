@@ -1,0 +1,13 @@
+{
+  "name": "grist-bb-catsection",
+  "description": "A template for showing an invoice in a Custom Widget in Grist.",
+  "homePage": "https://github.com/bradleygirl/grist-bb-catsection",
+  "version": "0.0.1",
+  "grist": {
+    "name": "Grist B&B Catalog Compare Widget",
+    "url": "",
+    "widgetId": "grist-bb-catsection",
+    "published": true,
+    "accessLevel": "read table"
+  }
+}
