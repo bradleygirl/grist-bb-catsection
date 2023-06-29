@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Grist Invoice</title>
+
+    <!-- A template for showing an invoice in a Custom Widget in Grist. -->
+    <!-- Uses Vue.js, moment, and the Grist Plugin API -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
+
+    <script src="catsection.js"></script>
+    <!--<script src="exampleData.js"></script>-->
+
+    <link rel="stylesheet" href="catsection.css?ver=17">
+  </head>
+  <body>
+    <div id="app">
+      <div class="status" v-if="status">
+        <template v-if="status === 'waiting'">
+          <p>Waiting for data...</p>
+          <ul>
+            <li v-bind:class="[tableConnected ? 'done' : '']">I need <b>read table</b> access.</li>
+            <li v-bind:class="[haveRows ? 'done' : '']">I need at least one row of data.</li>
+            <li v-bind:class="[rowConnected ? 'done' : '']">I need <b>Select By</b> set.</li>
+          </ul>
+         
+        </template>
+        <template v-else>
+          {{ status }}
+        </template>
+      </div>
+	  
+	<!-- TEMPLATES FOR CATALOG SECTION DISPLAY HERE  -->
+	<template v-if="section">
+		<div class="top">
+			<div class="block">
+				<div class="header">
+				  <div class="meta title">Comparing Section: #{{ Main_Categories.Print_Major_Section_Name }}</div>
+				</div>
+			</div>
+		</div>
+	</template>
+  </body>
+</html>
