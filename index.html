@@ -10,10 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
 
-    <script src="catrow.js"></script>
+    <script src="catrecord.js"></script>
     <!--<script src="exampleData.js"></script>-->
 
-    <link rel="stylesheet" href="catrow.css">
+    <link rel="stylesheet" href="catrecord.css">
   </head>
   <body>
     <div id="app">
@@ -42,7 +42,7 @@
       });
 	</script>
 		<pre id="readout"></pre>
-	  <template v-if="!Array.isArray(row.Families_data)">
+	  <template v-if="!Array.isArray(record.Families_data)">
 		<div class="item-family">
 			<div class="family-name"></div>
 			<div class="family-blurb"></div>
@@ -58,11 +58,11 @@
 		</div>
 		</template>
         <template v-else>
-		<div class="item-family" v-for="family in row.Families_data">
+		<div class="item-family" v-for="family in record.Families_data">
 			<div class="family-name">{{ family.Item_Family }}</div>
 			<div class="family-blurb">{{ family.Blurb }}</div>
 			<div class="family-image"><img src="" alt="{{ family.Item_Family }} main image" />{{ family.Main_image }}</div>
-			<div class="family-itemlist" v-for="item in row.Families_names.Item_s">
+			<div class="family-itemlist" v-for="item in record.Families_data.Item_s">
 				<div class="item">
 					<span class="sku">{{ item.SAP_Item_No_ }}</span>
 					<span class="itemattrs">{{ item.tab_string }}</span>
