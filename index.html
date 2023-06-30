@@ -42,7 +42,7 @@
       });
 	</script>
 		<pre id="readout"></pre>
-	  <template v-if="!Array.isArray(row.Families_names)">
+	  <template v-if="!Array.isArray(row.Families_data)">
 		<div class="item-family">
 			<div class="family-name"></div>
 			<div class="family-blurb"></div>
@@ -58,7 +58,7 @@
 		</div>
 		</template>
         <template v-else>
-		<div class="item-family" v-for="family in row.Families_names">
+		<div class="item-family" v-for="family in row.Families_data">
 			<div class="family-name">{{ family.Item_Family }}</div>
 			<div class="family-blurb">{{ family.Blurb }}</div>
 			<div class="family-image"><img src="" alt="{{ family.Item_Family }} main image" />{{ family.Main_image }}</div>
