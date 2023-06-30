@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Black & Black Surgical Catalog Section</title>
+    <title>Grist Invoice</title>
 
     <!-- Template for showing B&B catalog section in a Custom Widget in Grist. -->
     <!-- Uses Vue.js, moment, and the Grist Plugin API -->
@@ -36,6 +36,11 @@
 		<h1 id="section-title"></h1>
 	</div>
 	<div id="item-families">
+	<script>
+		grist.onRecord(function(record) {
+        document.getElementById('readout').innerHTML = JSON.stringify(record, null, 2);
+      });
+	</script>
 	  <template v-if="!Array.isArray(section.Families_names)">
 		<div class="item-family">
 			<div class="family-name"></div>
