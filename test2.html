@@ -9,28 +9,132 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
-
+    <script src="exampledata.js"></script>
     <link rel="stylesheet" href="catsection.css">
   </head>
   <body>
   
-	<script>
-	function ready(fn) {
+<script>
+function ready(fn) {
   if (document.readyState !== 'loading'){
     fn();
   } else {
     document.addEventListener('DOMContentLoaded', fn);
   }
 }
-
 grist.ready( 
   {  requiredAccess: 'read table'  }
 );
 
+function addDemo(row) {
+
+  if (!row.Invoicer) {
+    row.Invoicer = {
+      Name: 'Invoicer.Name',
+      Street1: 'Invoicer.Street1',
+      Street2: 'Invoicer.Street2',
+      City: 'Invoicer.City',
+      State: '.State',
+      Zip: '.Zip',
+      Email: 'Invoicer.Email',
+      Phone: 'Invoicer.Phone',
+      Website: 'Invoicer.Website'
+    }
+  }
+  if (!row.Client) {
+    row.Client = {
+      Name: 'Client.Name',
+      Street1: 'Client.Street1',
+      Street2: 'Client.Street2',
+      City: 'Client.City',
+      State: '.State',
+      Zip: '.Zip'
+    }
+  }
+  if (!row.Families_names) {
+    row.Families_names = [
+      {
+        FamilyName: 'Families_names[0].Item_Family',
+        Blurb: '.Blurb',
+	Bullets: '.Bullets',
+        ImageRef: '.Main_image',
+        Products: '.Item_s',
+      },
+      {
+        FamilyName: 'Families_names[1].Item_Family',
+        Blurb: '.Blurb',
+	Bullets: '.Bullets',
+        ImageRef: '.Main_image',
+        Products: '.Item_s',
+      },
+    ];
+  }
+  return row;
+}
+
+const data = {
+  count: 0,
+  section: '',
+  status: 'waiting',
+  tableConnected: false,
+  rowConnected: false,
+  haveRows: false,
+};
+let app = undefined;
+
+function updateSection(row) {
+  try {
+    data.status = '';
+    if (row === null) {
+      throw new Error("(No data - not on row - please add or select a row)");
+    }
+    console.log("GOT...", JSON.stringify(row));
+    if (row.References) {
+      try {
+        Object.assign(row, row.References);
+      } catch (err) {
+        throw new Error('Could not understand References column. ' + err);
+      }
+    }
+
+    addDemo(row);
+
+    // Fiddle around with updating Vue (I'm not an expert).
+    for (const key of want) {
+      Vue.delete(data.section, key);
+    }
+    for (const key of ['Help', 'SuggestReferencesColumn', 'References']) {
+      Vue.delete(data.invoice, key);
+    }
+    data.section = Object.assign({}, data.section, row);
+
+    // Make invoice information available for debugging.
+    window.section = row;
+  } catch (err) {
+    handleError(err);
+  }
+}
+ready(function() {
+  // Update the invoice anytime the document data changes.
+  grist.ready();
+  grist.onRecord(updateInvoice);
+ });
+
+Vue.config.errorHandler = function (err, vm, info)  {
+    handleError(err);
+  };
+
+  app = new Vue({
+    el: '#app',
+    data: data
+  });
+	
 grist.onRecord(function (record) {
   document.getElementById('section-title').innerText = record.Print_Major_Section_Name;
 	document.getElementById('readout').innerHTML = JSON.stringify(record, null, 2);
-  });
+ });
+
+// 
 
 	</script>
 	
