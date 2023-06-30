@@ -6,7 +6,9 @@ function ready(fn) {
   }
 }
 
-grist.ready({
+grist.ready(
+  {columns: ['Print_Major_Section_Name', 'Families_names', 'Families_data']}
+  {
     requiredAccess: 'read table'
   });
 
@@ -16,7 +18,6 @@ grist.onOptions(function(options, interaction) {
 
 grist.onRecord(function (record) {
     document.getElementById('section-title').innerText = record.Print_Major_Section_Name;
-    document.getElementById('image').src = record.Link;
   });
 
 
