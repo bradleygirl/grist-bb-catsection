@@ -25,7 +25,6 @@
             <li v-bind:class="[haveRows ? 'done' : '']">I need at least one row of data.</li>
             <li v-bind:class="[rowConnected ? 'done' : '']">I need <b>Select By</b> set.</li>
           </ul>
-         
         </template>
         <template v-else>
           {{ status }}
@@ -33,12 +32,12 @@
       </div>
 	  
 	<!-- TEMPLATES FOR CATALOG SECTION DISPLAY HERE  -->
-	<template v-if="section">
-		<div class="top block">
-			<div class="header">
-				<div class="meta title">Catalog Section: {{ section.Print_Major_Section_Name }}</div>
-			</div>
-		</div>
-	</template>
+	<div class="header">Black &amp; Black Surgical Catalog Section: 
+		<h1 id="section-title">{{ section.Print_Major_Section_Name }}</h1>
+	</div>
+	
+    
+    </div>
+
   </body>
 </html>
