@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Grist Invoice</title>
+    <title>Black & Black Surgical Catalog Section</title>
 
     <!-- Template for showing B&B catalog section in a Custom Widget in Grist. -->
     <!-- Uses Vue.js, moment, and the Grist Plugin API -->
@@ -33,11 +33,43 @@
 	  
 	<!-- TEMPLATES FOR CATALOG SECTION DISPLAY HERE  -->
 	<div class="header">Black &amp; Black Surgical Catalog Section: 
-		<h1 id="section-title">{{ section.Print_Major_Section_Name }}</h1>
+		<h1 id="section-title"></h1>
 	</div>
+	<div id="item-families">
+	  <template v-if="!Array.isArray(section.Families_names)">
+		<div class="item-family">
+			<div class="family-name"></div>
+			<div class="family-blurb"></div>
+			<div class="family-image"></div>
+			<div class="family-itemlist">
+				<div class="item">
+					<span class="sku"></span>
+					<span class="itemattrs"></span>
+					<span class="SAPtitle"></span>
+					<span class="webtitle"></span>
+				</div>
+			</div>
+		</div>
+		</template>
+        <template v-else>
+		<div class="item-family" v-for="family in section.Families_names">
+			<div class="family-name">{{ family.Item_Family }}</div>
+			<div class="family-blurb">{{ family.Blurb }}</div>
+			<div class="family-image"><img src="http://aws.bucket.link{{ family.Main_image }}" alt="{{ family.Item_Family }} main image" /></div>
+			<div class="family-itemlist" v-for="item in section.Families_names.Item_s">
+				<div class="item">
+					<span class="sku">{{ item.SAP_Item_No_ }}</span>
+					<span class="itemattrs">{{ item.tab_string }}</span>
+					<span class="SAPtitle">{{ item.SAP_description }}</span>
+					<span class="webtitle">{{ item.Web_Title_2 }}</span>
+				</div>
+			</div>
+		</div>
+		
+		</template>
+	  </div>
 	
+	</div>
     
-    </div>
-
   </body>
 </html>
