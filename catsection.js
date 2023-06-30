@@ -14,5 +14,14 @@ grist.onOptions(function(options, interaction) {
   console.log(interaction.access_level);
 });
 
+const data = {
+  count: 0,
+  section: '',
+  status: 'waiting',
+  tableConnected: false,
+  rowConnected: false,
+  haveRows: false,
+};
+let app = undefined;
 
 
