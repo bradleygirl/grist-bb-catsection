@@ -28,29 +28,6 @@ grist.ready(
 
 function addDemo(row) {
 
-  if (!row.Invoicer) {
-    row.Invoicer = {
-      Name: 'Invoicer.Name',
-      Street1: 'Invoicer.Street1',
-      Street2: 'Invoicer.Street2',
-      City: 'Invoicer.City',
-      State: '.State',
-      Zip: '.Zip',
-      Email: 'Invoicer.Email',
-      Phone: 'Invoicer.Phone',
-      Website: 'Invoicer.Website'
-    }
-  }
-  if (!row.Client) {
-    row.Client = {
-      Name: 'Client.Name',
-      Street1: 'Client.Street1',
-      Street2: 'Client.Street2',
-      City: 'Client.City',
-      State: '.State',
-      Zip: '.Zip'
-    }
-  }
   if (!row.Families_names) {
     row.Families_names = [
       {
@@ -104,7 +81,7 @@ function updateSection(row) {
       Vue.delete(data.section, key);
     }
     for (const key of ['Help', 'SuggestReferencesColumn', 'References']) {
-      Vue.delete(data.invoice, key);
+      Vue.delete(data.section, key);
     }
     data.section = Object.assign({}, data.section, row);
 
@@ -115,9 +92,9 @@ function updateSection(row) {
   }
 }
 ready(function() {
-  // Update the invoice anytime the document data changes.
+  // Update the section anytime the document data changes.
   grist.ready();
-  grist.onRecord(updateInvoice);
+  grist.onRecord(updateSection);
  });
 
 Vue.config.errorHandler = function (err, vm, info)  {
@@ -154,16 +131,21 @@ grist.onRecord(function (record) {
       </div>
 	  
 	<!-- TEMPLATES FOR CATALOG SECTION DISPLAY HERE  -->
+   <template v-if="invoice">	    
 	<div class="header">Black &amp; Black Surgical Catalog Section: 
-		<h1 id="section-title"></h1>
+		<h1 id="section-title">{{ section.Print_Major_Section_Name }}</h1>
 	</div>
 	<div id="item-families">
-		<pre id="readout"></pre>
-	  
-      
-	  </div>
-	
+		<div class="family" v-for="family in section.Families_names">
+			<div class="family-name">{{ family.FamilyName }}</div>
+			<div class="family-blurb">{{ family.Blurb }}</div>
+			<div class="family-image">{{ family.ImageRef }}</div>
+			<div class="product-list">{{ family.Products }}</div>
+		</div>
 	</div>
-    
+	</template>
+	</div>
+	  <div> <pre id="readout"></pre> </div>
+  </template>
   </body>
 </html>
