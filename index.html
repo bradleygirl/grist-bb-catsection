@@ -13,7 +13,7 @@
     <script src="catsection.js"></script>
     <!--<script src="exampleData.js"></script>-->
 
-    <link rel="stylesheet" href="catsection.css?ver=17">
+    <link rel="stylesheet" href="catsection.css">
   </head>
   <body>
     <div id="app">
@@ -34,11 +34,9 @@
 	  
 	<!-- TEMPLATES FOR CATALOG SECTION DISPLAY HERE  -->
 	<template v-if="section">
-		<div class="top">
-			<div class="block">
-				<div class="header">
-				  <div class="meta title">Comparing Section: #{{ Main_Categories.Print_Major_Section_Name }}</div>
-				</div>
+		<div class="top block">
+			<div class="header">
+				<div class="meta title">Catalog Section: {{ section.Print_Major_Section_Name }}</div>
 			</div>
 		</div>
 	</template>
