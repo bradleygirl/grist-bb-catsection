@@ -5,3 +5,14 @@ function ready(fn) {
     document.addEventListener('DOMContentLoaded', fn);
   }
 }
+
+grist.ready({
+    requiredAccess: 'read table'
+  });
+
+grist.onOptions(function(options, interaction) {
+  console.log(interaction.access_level);
+});
+
+
+
