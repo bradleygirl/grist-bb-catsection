@@ -28,3 +28,8 @@ const data = {
   haveRows: false,
 };
 let app = undefined;
+
+app = new Vue({
+    el: '#app',
+    data: data
+  });
