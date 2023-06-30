@@ -10,12 +10,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <script src="https://docs.getgrist.com/grist-plugin-api.js"></script>
 
-    <script src="catsection.js"></script>
-    <!--<script src="exampleData.js"></script>-->
+     <!--<script src="catsection.js"></script>
+   <script src="exampleData.js"></script>-->
 
     <link rel="stylesheet" href="catsection.css">
   </head>
   <body>
+  
+	<script>
+	function ready(fn) {
+  if (document.readyState !== 'loading'){
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+
+grist.ready(
+ 
+  {
+    requiredAccess: 'read table'
+  });
+
+grist.onRecord(function (record) {
+    document.getElementById('section-title').innerText = record.Print_Major_Section_Name;
+  });
+
+	grist.onRecord(function(record) {
+        document.getElementById('readout').innerHTML = JSON.stringify(record, null, 2);
+      });
+	</script>
+	
     <div id="app">
       <div class="status" v-if="status">
         <template v-if="status === 'waiting'">
@@ -36,11 +61,6 @@
 		<h1 id="section-title"></h1>
 	</div>
 	<div id="item-families">
-	<script>
-	grist.onRecord(function(record) {
-        document.getElementById('readout').innerHTML = JSON.stringify(record, null, 2);
-      });
-	</script>
 		<pre id="readout"></pre>
 	  <template v-if="!Array.isArray(record.Families_data)">
 		<div class="item-family">
