@@ -37,10 +37,11 @@
 	</div>
 	<div id="item-families">
 	<script>
-		grist.onRecord(function(record) {
+	grist.onRecord(function(record) {
         document.getElementById('readout').innerHTML = JSON.stringify(record, null, 2);
       });
 	</script>
+		<pre id="readout"></pre>
 	  <template v-if="!Array.isArray(section.Families_names)">
 		<div class="item-family">
 			<div class="family-name"></div>
