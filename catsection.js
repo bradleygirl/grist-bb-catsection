@@ -18,3 +18,13 @@ grist.onRecord(function (record) {
     document.getElementById('section-title').innerText = record.Print_Major_Section_Name;
     document.getElementById('image').src = record.Link;
   });
+
+const data = {
+  count: 0,
+  section: '',
+  status: 'waiting',
+  tableConnected: false,
+  rowConnected: false,
+  haveRows: false,
+};
+let app = undefined;
